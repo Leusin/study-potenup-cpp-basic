@@ -55,17 +55,17 @@ char ToLowerCase(char lowercase)
 	return ret;
 }
 
-class Person
+class Player
 {
 public:
-	Person(const char* name) 
+	Player(const char* name) 
 	{
 		size_t len = strlen(name) + 1;
 		this->name = new char[len];
 		strcpy_s(this->name, len, name); // 값복사
 	};
 
-	~Person() 
+	~Player() 
 	{
 		if (name != nullptr)
 		{
@@ -115,7 +115,7 @@ int main()
 	// 클래스
 	//
 	{
-		Person p = Person("MyName");
+		Player p = Player("MyName");
 		p.PrintName();
 	}
 	 
