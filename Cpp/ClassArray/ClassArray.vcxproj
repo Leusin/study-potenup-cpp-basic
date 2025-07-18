@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{036b810a-a6f8-4639-ad11-cf3c20aca801}</ProjectGuid>
-    <RootNamespace>ClassBasic</RootNamespace>
+    <ProjectGuid>{b9e8a1ba-96f4-46ee-bba3-36f2ffb88695}</ProjectGuid>
+    <RootNamespace>ClassArray</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -72,11 +72,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(ProjectName)\Bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)$(ProjectName)\Intermidiate\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)$(ProjectName)\Intermidiate\\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(ProjectName)\Bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)$(ProjectName)\Intermidiate\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)$(ProjectName)\Intermidiate\\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -131,19 +131,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Calculator.cpp" />
+    <ClCompile Include="ClassArray.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="NameCard.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Printer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Calculator.h" />
-    <ClInclude Include="Circle.h" />
     <ClInclude Include="NameCard.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Printer.h" />
-    <ClInclude Include="Rectangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

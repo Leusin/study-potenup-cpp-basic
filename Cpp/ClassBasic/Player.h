@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 namespace Game
 {
     class Person
@@ -10,10 +12,12 @@ namespace Game
             , y(0)
             , speed(0)
         {
+            std::cout << "Person 생성자\n";
         }
 
         ~Person()
         {
+            std::cout << "Person 소멸자\n";
         }
 
         // 접근함수

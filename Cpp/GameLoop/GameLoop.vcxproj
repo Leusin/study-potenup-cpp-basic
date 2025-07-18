@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{036b810a-a6f8-4639-ad11-cf3c20aca801}</ProjectGuid>
-    <RootNamespace>ClassBasic</RootNamespace>
+    <ProjectGuid>{8e1f58a5-ab0f-4875-ae45-239398d4de36}</ProjectGuid>
+    <RootNamespace>GameLoop</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -131,19 +131,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Calculator.cpp" />
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="NameCard.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Printer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Calculator.h" />
-    <ClInclude Include="Circle.h" />
-    <ClInclude Include="NameCard.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Printer.h" />
-    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="Engine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

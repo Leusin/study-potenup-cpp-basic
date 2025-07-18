@@ -21,10 +21,10 @@
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Calculator.cpp">
+    <ClCompile Include="Printer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Printer.cpp">
+    <ClCompile Include="ClassArray.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="NameCard.cpp">
@@ -35,16 +35,7 @@
     <ClInclude Include="Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Calculator.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Printer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Rectangle.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Circle.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="NameCard.h">
