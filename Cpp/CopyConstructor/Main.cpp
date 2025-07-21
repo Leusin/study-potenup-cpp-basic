@@ -29,7 +29,7 @@ public:
 	/* 복사 생성자 */
 	// L-Val / R-Val / L-Val Ref(&) / R-Val Ref(&&) <--- since C++11
 	Player(const Player& other) 
-		: x(other.x), y(other.y)//, name(other.name) <- 동적 할당하는 객체는 이런 짓 하면 안된다.
+		: x(other.x), y(other.y)//, name(other.name) <- 동적 할당하는 객체는 이런 "얕은 복사"를 하면 안된다.
 		// 주소의 복사가 읽어난다(64x 라면 8바이트)
 		// 기본 생성자처럼 선언하지 않아도 기본적으로 있다. "기본 복사 생성자"라고 한다.
 		// 변수의 값을 그대로 대입한다
