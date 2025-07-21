@@ -86,10 +86,5 @@ int main()
 		delete acounts[i];
 	}
 
-
-	// TEST
-	Acount acounts1(999, "이름");
-	Acount acounts2(acounts1);
-
 	return 0;
 }

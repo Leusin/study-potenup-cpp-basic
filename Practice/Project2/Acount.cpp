@@ -9,14 +9,6 @@ Acount::Acount(int id, const char* name, int balance)
 	strcpy_s(this->name, len, name);
 }
 
-Acount::Acount(const Acount& other)
-	: id(other.id), balance(other.balance), name(nullptr)
-{
-	size_t len = strlen(other.name) + 1;
-	this->name = new char[len];
-	strcpy_s(this->name, len, other.name);
-}
-
 Acount::~Acount()
 {
 	if (name != nullptr)

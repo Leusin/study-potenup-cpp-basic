@@ -4,7 +4,6 @@ class Acount
 {
 public:
 	Acount(int id, const char* name, int balance = 0);
-	Acount(const Acount& other);
 	~Acount();
 
 	void Deposit(int val);
