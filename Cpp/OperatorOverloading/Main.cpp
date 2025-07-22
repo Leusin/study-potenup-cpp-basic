@@ -47,6 +47,15 @@ int main()
 
 	std::cout << result << "\n";
 
+	std::cout << (Vector2(1, 2) - Vector2(3, 4)) << "\n";	// (-2 , -2)
+	std::cout << (Vector2(1, 2) == Vector2(3, 4)) << "\n";	// 0
+	std::cout << (Vector2(1, 1) == Vector2(1, 1)) << "\n";	// 1
+	std::cout << (Vector2(1, 2) != Vector2(3, 4)) << "\n";	// 1
+
+	Vector2 vec(1, 2);
+	vec += Vector2(3, 4);
+	std::cout << vec << "\n"; // (4 , 5)
+
 	Increment();
 	Increment();
 	Increment();

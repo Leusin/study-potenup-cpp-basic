@@ -34,6 +34,27 @@ public:
 		return Vector2(x * other.x, y * other.y);
 	}
 
+	Vector2 operator-(const Vector2& other) const
+	{
+		return Vector2(x - other.x, y - other.y);
+	}
+
+	bool operator==(const Vector2& other) const
+	{
+		return (x == other.x) && (y == other.y);
+	}
+
+	bool operator!=(const Vector2& other) const
+	{
+		return (x != other.x) || (y != other.y);
+	}
+
+	void operator+=(const Vector2& other) 
+	{
+		x += other.x;
+		y += other.y;
+	}
+
 	friend std::ostream& operator<<(std::ostream& os, const Vector2& vector)
 	{
 		return os << "(" << vector.x << ", " << vector.y << ") ";
