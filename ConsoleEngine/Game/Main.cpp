@@ -1,15 +1,14 @@
 #include <iostream>
 #include "Engine.h"
-#include "Math/Vector2.h"
+#include "DemoLevel.h"
 
 int main()
 {
-	Engine engine;
-	//engine.Run();
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	Vector2 a(10, 20);
-	Vector2 b(30, 40);
-	std::cout << (a + b).ToString() << "\n";
+	Engine engine;
+	engine.AddLevel(new DemoLevel());
+	engine.Run();
 
 	return 0;
 }
