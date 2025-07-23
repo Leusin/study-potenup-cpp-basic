@@ -7,7 +7,6 @@ public:
 	Point(int x = 0, int y = 0)
 		:x(x), y(y)
 	{
-
 	}
 
 	// 맴버 함수 연산자 오버로딩
