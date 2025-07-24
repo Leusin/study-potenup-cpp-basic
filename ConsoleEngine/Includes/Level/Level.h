@@ -2,14 +2,17 @@
 
 #include <vector>
 #include "Core.h"
+#include "RTTI.h"
 
 class Actor;
 
 /// <summary>
 /// - 액터들을 관리한다.
 /// </summary>
-class Engine_API Level
+class Engine_API Level : public RTTI
 {
+	RTTI_DECLARATIONS(Level, RTTI)
+
 public:
 	Level();
 	virtual ~Level();

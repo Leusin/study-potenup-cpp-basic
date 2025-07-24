@@ -4,13 +4,9 @@
 #include "Core.h"
 
 /** 
- * ToDo: 2025/07/23
- * [x] 키입력 관리(KeyStat 배열)
- * [x] 입력 확인 함수 (GetKey, GetKeyDown, GetKeyUp)
- * [x] Entity 추가(Actor)
- * [x] 이벤트 함수 추가(BeginPlaye, Tick, Render)
- * [x] Level 추가(가상 공간에 배치된 물체(Actor) 관리 객체)
- * 
+ * ToDo: 2025/07/24
+ * [] RTTI 적용.
+ * [] Engine 싱글톤 구현. 
  * 
  */
 

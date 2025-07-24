@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Math/Vector2.h"
+#include "RTTI.h"
 
 /// <summary>
 /// "물체가 뭘해야할까?" 를 정의한다
@@ -9,8 +10,10 @@
 /// - 콘솔 창에 그리기(어떻케)
 /// - 엔진의 이벤트 함수 호출: BeginPlay / Tick / Draw
 /// </summary>
-class Engine_API Actor
+class Engine_API Actor : public RTTI
 {
+	RTTI_DECLARATIONS(Actor, RTTI)
+
 public:
 	Actor();
 	virtual ~Actor();
