@@ -1,1 +1,1 @@
-HELLO FILE IO EXAMPLE.
+number=10 name=ronniej testnumber=3.14
