@@ -5,8 +5,7 @@
 
 /** 
  * ToDo: 2025/07/24
- * [] RTTI 적용.
- * [] Engine 싱글톤 구현. 
+ * [] 언젠가 싱글턴 지우기Engine 싱글톤 구현. 
  * 
  */
 
@@ -37,6 +36,8 @@ public:
 
 	void AddLevel(Level* newLevel);
 
+	static Engine& Get();
+
 private:
 	void ProcessInput();
 	void BeginPlaye();
@@ -44,8 +45,10 @@ private:
 	void Render();
 
 private:
-	
 	bool isQuit = false;
 	KeyState keyStates[255] = { };
 	Level* mainLevel = nullptr;
+
+	// 싱글턴 변수
+	static Engine* instance;
 };

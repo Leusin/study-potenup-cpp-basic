@@ -1,10 +1,25 @@
 #include "Engine.h"
 
 #include <iostream>
+#include <windows.h>
 #include "Level/level.h"
+
+Engine* Engine::instance = nullptr;
 
 Engine::Engine()
 {
+	instance = this;
+
+	// 커서 설정
+	_CONSOLE_CURSOR_INFO consoleCursorInfo;
+	consoleCursorInfo.bVisible = false;
+	consoleCursorInfo.dwSize = 1;
+
+	// 커서가 보이지 않도록 
+	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &consoleCursorInfo);
+
+	// 여기서 설정하면 모든 텍스트에 적용됨
+	//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);
 }
 
 Engine::~Engine()
@@ -34,7 +49,7 @@ void Engine::Run()
 	{
 		if (isQuit)
 		{
-			return;
+			break;
 		}
 
 		QueryPerformanceCounter(&currentTime);
@@ -56,8 +71,9 @@ void Engine::Run()
 				keyStates[keyCode].previouseKeyDown = GetAsyncKeyState(keyCode) & 0x80000;
 			}
 		}
-
 	}
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7 /*= FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED*/); // 출력 색상 정리.
 }
 
 void Engine::Quit()
@@ -88,6 +104,11 @@ void Engine::AddLevel(Level* newLevel)
 	}
 
 	mainLevel = newLevel;
+}
+
+Engine& Engine::Get()
+{
+	return *instance;
 }
 
 void Engine::ProcessInput()
@@ -137,14 +158,16 @@ void Engine::Tick(float deltaTime)
 		mainLevel->Thick(deltaTime);
 	}
 
-	if (GetKeyDown(VK_ESCAPE))
+	/*if (GetKeyDown(VK_ESCAPE))
 	{
 		Quit();
-	}
+	}*/
 }
 
 void Engine::Render()
 {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7 /*= FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED*/); // 출력 색상 정리.
+
 	// LEVEL
 	if (mainLevel)
 	{

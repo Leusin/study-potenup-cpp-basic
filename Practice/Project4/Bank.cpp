@@ -46,6 +46,25 @@ void Bank::Run()
 				accounts[count] = new DonationAccount(id, name);
 				count++;
 			}
+
+			// 파일 쓰기
+			// 계좌번호(= 줄번호 - 1),이름,계좌종류(1 or 2),잔액
+			{
+
+				// 파일 열기
+				FILE* file = nullptr;
+				fopen_s(&file, "BankData.txt", "rt"); // 텍스트 파일을 읽기 전용으로 읽는다.
+
+				if (file == nullptr)
+				{
+					std::cout << "파일을 열 수 없습니다. \n";
+					return;
+				}
+
+				// 파일 닫기
+				fclose(file);
+			}
+
 		}
 		if (input == '2')
 		{
@@ -109,25 +128,19 @@ void Bank::LoadDatas()
 	// 파일 열기
 	FILE* file = nullptr;
 	fopen_s(&file, "BankData.txt", "rt"); // 텍스트 파일을 읽기 전용으로 읽는다.
+
 	if (file == nullptr)
 	{
 		std::cout << "파일을 열 수 없습니다. \n";
 		return;
 	}
 
-	// 파일 읽기 TEST
 	char b[256];
-	while (true)
+	int line = 1;
+	while (fgets(b, sizeof(b), file) != nullptr) //한 줄씩 읽는다.
 	{
-		const size_t ret_code = fread(b, sizeof b[0]/* = 1*/, 256, file);
-		if (ret_code)
-		{
-			std::cout << b << "\n";
-
-			break;
-		}
-
-		std::cout << b;
+		std::cout << line << " : " << b;
+		line++;
 	}
 
 
