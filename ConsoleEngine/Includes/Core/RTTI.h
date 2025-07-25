@@ -42,9 +42,9 @@ public:
 // 자손 타입, 부모타입
 #define RTTI_DECLARATIONS(Type, ParentType)												\
 public:																					\
-	using super = ParentType;															\ // 언리얼의 Super도 이와 같이 동작
+	using super = ParentType;															\
 	virtual const size_t& TypeIdInstance() const { return Type::TypeIdClass(); }		\
-	static const size_t TypeIdClass()													\ // 메모리 주소의 사용
+	static const size_t TypeIdClass()													\
 	{																					\
 		static int runTimeTypeId = 0;													\
 		return reinterpret_cast<size_t>(&runTimeTypeId);								\
