@@ -24,7 +24,7 @@ class Engine_API Actor : public RTTI
 	RTTI_DECLARATIONS(Actor, RTTI)
 
 public:
-	Actor(const char image = ' ', Color color = Color::White);
+	Actor(const char image = ' ', Color color = Color::White, const Vector2& position = Vector2::Zero);
 	virtual ~Actor();
 
 	virtual void BeginPlay(); // 단 한번만 호출. (초기화가 필요한 작업)

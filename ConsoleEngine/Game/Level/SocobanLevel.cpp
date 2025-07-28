@@ -1,6 +1,12 @@
 #include "SocobanLevel.h"
 
 #include"Math/Vector2.h"
+#include"Actor/Player.h"
+#include"Actor/Wall.h"
+#include"Actor/Box.h"
+#include"Actor/Ground.h"
+#include"Actor/Target.h"
+
 
 SocobanLevel::SocobanLevel()
 {
@@ -56,9 +62,9 @@ void SocobanLevel::ReadMapFile(const char* filename)
 		char mapCharacter = buffer[index++]; // 맵 문자 확인;
 
 		// 개행 문자 처리
-		if(mapCharacter == '\n')
+		if (mapCharacter == '\n')
 		{
-			++position.x;
+			++position.y;
 			position.x = 0;
 
 			//@TODO: 테스트용 
@@ -66,17 +72,39 @@ void SocobanLevel::ReadMapFile(const char* filename)
 
 			continue;
 		}
-		
+
 		switch (mapCharacter) // 각 문자 별 처리
 		{
-		case '#': printf("#"); break;
-		case '.': printf("."); break;
-		case 'p': printf("p"); break;
-		case 'b': printf("b"); break;
-		case 't': printf("t"); break;
+		case '#':
+		{
+			AddActor(new Wall(position));
+		}
+		break;
+		case '.':
+		{
+			AddActor(new Ground(position));
+		}
+		break;
+		case 'p':
+		{
+			AddActor(new Player(position));
+		}
+		break;
+		case 'b': {
+			AddActor(new Box(position));
+		}
+				break;
+		case 't':
+		{
+			AddActor(new Target(position));
+		}
+		break;
 		default:
 			break;
 		}
+
+		// 좌표 증가
+		++position.x;
 	}
 
 	delete[] buffer;
