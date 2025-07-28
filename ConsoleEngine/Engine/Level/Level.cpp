@@ -10,10 +10,12 @@ Level::~Level()
 {
 	for (Actor* actor : actors)
 	{
-		if (actor)
+		SafeDelete(actor); // 다음 주석과 같다.
+		/*if (actor)
 		{
 			delete actor;
-		}
+			actor = nullptr;
+		}*/
 	}
 }
 

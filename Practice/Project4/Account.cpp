@@ -36,3 +36,8 @@ char* Account::GetName() const
 {
 	return name;
 }
+
+int Account::GetBalance() const
+{
+	return balance;
+}

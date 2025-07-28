@@ -10,6 +10,7 @@ public:
 	void Withdrawal(int val);
 	virtual void Print() const;
 	char* GetName() const;
+	int GetBalance() const;
 
 protected:
 	int id;

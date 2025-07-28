@@ -18,18 +18,24 @@
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="DemoLevel.cpp">
+    <ClCompile Include="Demo\DemoLevel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="TestActor.cpp">
+    <ClCompile Include="Demo\TestActor.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\SocobanLevel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DemoLevel.h">
+    <ClInclude Include="Demo\DemoLevel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="TestActor.h">
+    <ClInclude Include="Demo\TestActor.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\SocobanLevel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
