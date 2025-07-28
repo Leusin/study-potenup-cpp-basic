@@ -8,7 +8,7 @@ public:
 
 	virtual void Deposit(int val);
 	void Withdrawal(int val);
-	void Print() const;
+	virtual void Print() const;
 	char* GetName() const;
 
 protected:

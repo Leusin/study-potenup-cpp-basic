@@ -8,6 +8,7 @@ public:
 	virtual ~DonationAccount();
 
 	virtual void Deposit(int val) override;
+	virtual void Print() const override;
 
 private:
 	int donated = 0;

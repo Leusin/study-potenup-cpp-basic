@@ -8,4 +8,5 @@ public:
 	virtual ~CreditAccount();
 
 	virtual void Deposit(int val) override;
+	virtual void Print() const override;
 };

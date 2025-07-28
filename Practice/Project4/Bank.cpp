@@ -136,12 +136,12 @@ void Bank::LoadDatas()
 	}
 
 	char b[256];
-	int line = 1;
 	while (fgets(b, sizeof(b), file) != nullptr) //한 줄씩 읽는다.
 	{
-		std::cout << line << " : " << b;
-		line++;
+		std::cout << b; // TEST
+		// 종류 
 	}
+	std::cout << "\n";
 
 
 	// 파일 닫기

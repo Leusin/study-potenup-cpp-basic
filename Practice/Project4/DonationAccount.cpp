@@ -1,4 +1,5 @@
 #include "DonationAccount.h"
+
 #include <iostream>
 
 DonationAccount::DonationAccount(int id, const char* name, int balance)
@@ -17,4 +18,10 @@ void DonationAccount::Deposit(int val)
 	balance += val - donate;
 
 	std::cout << name << "님, 지금까지 " << donated << " 기부하셨습니다.\n";
+}
+
+void DonationAccount::Print() const
+{
+	std::cout << "기부 ";
+	Account::Print(); // std::cout << "계좌번호: " << id << " / 고객 이름: " << name << " / 고객의 잔액: " << balance << "\n";
 }
