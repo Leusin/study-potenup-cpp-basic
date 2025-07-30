@@ -16,18 +16,6 @@ Level::~Level()
 	}
 }
 
-void Level::AddActor(Actor* newActor)
-{
-	// TODO: 중복 여부 확인 예외처리 하면 좋음
-
-	addRequestedActors.emplace_back(newActor);
-}
-
-void Level::DestroyActor(Actor* destroyActor)
-{
-	destroyRequstedActors.emplace_back(destroyActor); // 대기 배열에 추가
-}
-
 void Level::BeginPlay()
 {
 	for (Actor* const actor : actors)
@@ -88,6 +76,18 @@ void Level::Render()
 	}
 }
 
+void Level::AddActor(Actor* newActor)
+{
+	// TODO: 중복 여부 확인 예외처리 하면 좋음
+
+	addRequestedActors.emplace_back(newActor);
+}
+
+void Level::DestroyActor(Actor* destroyActor)
+{
+	destroyRequstedActors.emplace_back(destroyActor); // 대기 배열에 추가
+}
+
 void Level::ProcessAddAndDestroyActors()
 {
 	// 삭제할 액터 배열 제외
@@ -126,6 +126,8 @@ void Level::ProcessAddAndDestroyActors()
 		actors.emplace_back(actor);
 		actor->owner = this; // 오너 설정.
 	}
+
+	addRequestedActors.clear();
 }
 
 void Level::SortActorsBySortingOrder()

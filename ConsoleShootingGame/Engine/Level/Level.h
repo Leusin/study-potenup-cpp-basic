@@ -17,13 +17,12 @@ public:
 	Level();
 	virtual ~Level();
 
-	void AddActor(Actor* newActor); // 레벨에 액터 추가
-	void DestroyActor(Actor* newActor); // 액터 삭제
-
 	virtual void BeginPlay();
 	virtual void Tick(float deltaTime);
 	virtual void Render();
 
+	void AddActor(Actor* newActor); // 레벨에 액터 추가
+	void DestroyActor(Actor* newActor); // 액터 삭제
 	void ProcessAddAndDestroyActors(); // 추가 또는 삭제 요청된 액터 처리
 
 protected:

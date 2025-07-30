@@ -82,7 +82,7 @@ void Engine::Run()
 
 			// 제목에 FPS 출력
 			char title[50] = {};
-			sprintf_s(title, 50, "FPS: %f", (1.f / deltaTime));
+			sprintf_s(title, 50, "(h: %d, w: %d)FPS: %f",settings.height, settings.width, (1.f / deltaTime));
 			SetConsoleTitleA(title);
 
 			previousTime = currentTime;
@@ -102,12 +102,7 @@ void Engine::Run()
 
 void Engine::CleanUp()
 {
-	/*if (mainLevel)
-	{
-		delete mainLevel;
-		mainLevel = nullptr;
-	}*/
-	SafeDelete<Level>(mainLevel);
+	SafeDelete(mainLevel);
 }
 
 void Engine::Quit()
@@ -123,6 +118,16 @@ void Engine::AddLevel(Level* newLevel)
 	}
 
 	mainLevel = newLevel;
+}
+
+int Engine::Width() const
+{
+	return settings.width;
+}
+
+int Engine::Height() const
+{
+	return settings.height;
 }
 
 Engine& Engine::Get()
@@ -226,11 +231,11 @@ void Engine::LoadEngineSettings()
 		}
 		else if (strcmp(header, "width") == 0)
 		{
-			sscanf_s(token, "width = %d", &settings.framerate);
+			sscanf_s(token, "width = %d", &settings.width);
 		}
 		else if (strcmp(header, "height") == 0)
 		{
-			sscanf_s(token, "height = %d", &settings.framerate);
+			sscanf_s(token, "height = %d", &settings.height);
 		}
 
 		// 그 다음줄 분리

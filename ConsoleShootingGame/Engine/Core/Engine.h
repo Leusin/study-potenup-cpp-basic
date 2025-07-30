@@ -27,12 +27,13 @@ public:
 	virtual ~Engine();
 
 	void Run(); // 엔진 루프
-
 	virtual void CleanUp(); // 메모라 해제
-
 	void Quit(); // 종료
 
 	void AddLevel(class Level* newLevel);
+
+	int Width() const;
+	int Height() const;
 
 	static Engine& Get();
 

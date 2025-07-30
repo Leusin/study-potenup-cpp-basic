@@ -61,6 +61,22 @@ void Actor::SetPosition(const Vector2& newPosition)
 		return;
 	}
 
+	// 오른쪽 가장자리 혹은 맨 위로 벗어났는가
+	if (newPosition.x < 0 || newPosition.y < 0)
+	{
+		return;
+	}
+	// 왼쪽 가장자리로 벗어났는가
+	if (newPosition.x + width - 1 > Engine::Get().Width())
+	{
+		return;
+	}
+	// 아래 범위를 벗어났는가
+	if (newPosition.y + 1 > Engine::Get().Height())
+	{
+		return;
+	}
+
 	Vector2 direction = newPosition - position; // 지울 위치 확인
 
 	position.x = (direction.x >= 0) ? position.x : position.x + width - 1;
@@ -91,3 +107,5 @@ int Actor::Width() const
 {
 	return width;
 }
+
+
