@@ -2,16 +2,7 @@
 
 #include "Core.h"
 #include "Math/Vector2.h"
-#include "RTTI.h"
-
-enum class Color: int
-{
-	Red = 4,
-	Green = 2,
-	Blue = 1,
-	White = Red | Green | Blue /* = 7 */,
-	Intensity = 8,
-};
+#include "Math/Color.h"
 
 /// <summary>
 /// "물체가 뭘해야할까?" 를 정의한다
