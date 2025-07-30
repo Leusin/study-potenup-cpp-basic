@@ -5,6 +5,7 @@
 #include "Utils/Utils.h"
 #include "Level/Level.h"
 #include "Core/Engine.h"
+#include "Actor/PlayerBullet.h"
 
 Player::Player()
 	: Actor("<<A>>", Color::Red)
@@ -56,7 +57,8 @@ void Player::Tick(float deltaTime)
 
 void Player::Fire()
 {
-	// TODO: 플레이어 탄약 객체 생성
+	Vector2 bulletPostion(Position().x + Width() / 2, Position().y - 1);
+	GetOwner()->AddActor(new PlayerBullet(bulletPostion));
 }
 
 void Player::FireInterval(float deltaTime)
