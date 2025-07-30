@@ -21,6 +21,8 @@ enum class Color: int
 /// </summary>
 class Engine_API Actor : public RTTI
 {
+	friend class Level;
+
 	RTTI_DECLARATIONS(Actor, RTTI)
 
 public:
@@ -31,8 +33,14 @@ public:
 	virtual void Tick(float deltaTime); // 매 프레임 호출. (반복성 작업/지속성이 필요한 작업)
 	virtual void Render(); // 그리기
 
+	void QuitGame();
+
 	void SetPosition(const Vector2& newPosition);
 	Vector2 Position() const;
+
+	void SetSortingOrder(unsigned int sortingOrder);
+
+	class Level* GetOwner() const;
 
 	inline bool HasBegonPlay() const { return hasBegonPlay; }
 
@@ -44,4 +52,8 @@ private:
 	Color color = Color::White;// = Color::Blue | Color::Green | Color::Red;
 
 	bool hasBegonPlay = false; // 호출이 되었는지 확인
+
+	unsigned int sortingOrder = 0; // 정렬 순서
+
+	class Level* owner = nullptr; // 소유 레벨
 };

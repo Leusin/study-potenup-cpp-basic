@@ -29,3 +29,16 @@ void SafeDelete(T*& target)
 		target = nullptr;
 	}
 }
+
+/// <summary>
+/// 배열 메모리 정리 함수
+/// </summary>
+template<typename T>
+void SafeDeleteArray(T*& target)
+{
+	if (target)
+	{
+		delete[] target;
+		target = nullptr;
+	}
+}

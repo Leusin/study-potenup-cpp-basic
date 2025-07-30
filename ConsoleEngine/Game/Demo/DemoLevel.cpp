@@ -31,7 +31,7 @@ DemoLevel::DemoLevel()
 	while (!feof(file))
 	{
 		fgets(buffer, 256, file); // 한 줄씩 읽기
-		int lineLength = strlen(buffer); // 한 줄 문자열 길이값 구하기
+		int lineLength = (int)strlen(buffer); // 한 줄 문자열 길이값 구하기
 
 		// 파싱
 		for (int i = 0; i < lineLength; ++i)
