@@ -5,15 +5,19 @@
 #include "Utils/Utils.h"
 #include "Level/Level.h"
 
-Actor::Actor(const char image, Color color, const Vector2& position)
-	: image(image), color(color), position(position)
+Actor::Actor(const char* image, Color color, const Vector2& position)
+	: color(color), position(position)
 {
+	// iamge 초기화
+	width = (int)strlen(image); // 문자열 길이
+	this->image = new char[width + 1]; // 문자열 메모리 할당
+	strcpy_s(this->image, width + 1, image); // 문자열 복사
 }
 
 Actor::~Actor()
 {
+	SafeDeleteArray(image); // 문자열 메모리 해제
 }
-
 
 void Actor::BeginPlay()
 {
@@ -80,4 +84,9 @@ void Actor::SetSortingOrder(unsigned int sortingOrder)
 Level* Actor::GetOwner() const
 {
 	return owner;
+}
+
+int Actor::Width() const
+{
+	return width;
 }
