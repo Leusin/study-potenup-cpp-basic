@@ -1,17 +1,9 @@
 #pragma once
 
 #include "Core.h"
-#include "Math/Vector2.h"
 #include "RTTI.h"
-
-enum class Color: int
-{
-	Red = 4,
-	Green = 2,
-	Blue = 1,
-	White = Red | Green | Blue /* = 7 */,
-	Intensity = 8,
-};
+#include "Math/Vector2.h"
+#include "Math/Color.h"
 
 /// <summary>
 /// "물체가 뭘해야할까?" 를 정의한다
@@ -26,12 +18,14 @@ class Engine_API Actor : public RTTI
 	RTTI_DECLARATIONS(Actor, RTTI)
 
 public:
-	Actor(const char image = ' ', Color color = Color::White, const Vector2& position = Vector2::Zero);
+	Actor(const char* image = "", Color color = Color::White, const Vector2& position = Vector2::Zero);
 	virtual ~Actor();
 
 	virtual void BeginPlay(); // 단 한번만 호출. (초기화가 필요한 작업)
 	virtual void Tick(float deltaTime); // 매 프레임 호출. (반복성 작업/지속성이 필요한 작업)
 	virtual void Render(); // 그리기
+
+	void Destroy(); // 삭제 요청
 
 	void QuitGame();
 
@@ -42,18 +36,26 @@ public:
 
 	class Level* GetOwner() const;
 
+	int Width() const;
+
 	inline bool HasBegonPlay() const { return hasBegonPlay; }
 
 private:
 	Vector2 position; // 개체의 위치
 
-	char image = ' ';
+	char* image = nullptr;
+
+	int width = 0; // 문자열 길이
 
 	Color color = Color::White;// = Color::Blue | Color::Green | Color::Red;
 
 	bool hasBegonPlay = false; // 호출이 되었는지 확인
 
 	unsigned int sortingOrder = 0; // 정렬 순서
+
+	bool isActive = true;// 액터가 활성 상태인지
+
+	bool isExpired = false;	// 삭제 요청됐는지 
 
 	class Level* owner = nullptr; // 소유 레벨
 };

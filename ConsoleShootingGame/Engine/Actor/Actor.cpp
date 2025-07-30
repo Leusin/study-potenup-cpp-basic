@@ -34,17 +34,18 @@ void Actor::Render()
 	// 커서위치 이동.
 	//static HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE); // 콘솔 출력 제어 핸들 얻어오기
 
-	COORD coord; // 커서 위치값 생성
-	coord.X = (short)position.x;
-	coord.Y = (short)position.y;
-
 	// 커서 이동.
-	Utils::SetConsolePosition(coord);
+	Utils::SetConsolePosition(position);
 
 	// 색상 설정
-	Utils::SetConsoleTextColor((WORD)color);
+	Utils::SetConsoleTextColor(color);
 
-	printf("%c", image); // 그리기
+	printf("%s", image); // 그리기
+}
+
+void Actor::Destroy()
+{
+	isExpired = true;
 }
 
 void Actor::QuitGame()
@@ -54,19 +55,18 @@ void Actor::QuitGame()
 
 void Actor::SetPosition(const Vector2& newPosition)
 {
-	// TODO: 야매로 지나간 흔적 지우기
+	if (position == newPosition)
 	{
-		static HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE); // 콘솔 출력 제어 핸들 얻어오기
-
-		COORD coord; // 커서 위치값 생성
-		coord.X = (short)position.x;
-		coord.Y = (short)position.y;
-
-		// 커서 이동.
-		Utils::SetConsolePosition(coord);
-
-		printf(" "); // 지우기
+		return;
 	}
+
+	Vector2 direction = newPosition - position; // 지울 위치 확인
+
+	position.x = (direction.x >= 0) ? position.x : position.x + width - 1;
+	
+	Utils::SetConsolePosition(position); // 커서 이동.
+
+	printf(" "); // 지우기
 
 	position = newPosition;
 }
