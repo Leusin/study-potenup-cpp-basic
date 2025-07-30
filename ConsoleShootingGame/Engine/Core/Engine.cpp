@@ -88,6 +88,11 @@ void Engine::Run()
 			previousTime = currentTime;
 
 			input.SavePreviousKeyStates();
+			
+			if (mainLevel) // 이전 프레임에 추가 및 삭제 요청 처리
+			{
+				mainLevel->ProcessAddAndDestroyActors();
+			}
 		}
 	}
 

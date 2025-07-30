@@ -45,7 +45,8 @@ void Actor::Render()
 
 void Actor::Destroy()
 {
-	isExpired = true;
+	isExpired = true; // 삭제 요청 설정
+	owner->DestroyActor(this);
 }
 
 void Actor::QuitGame()

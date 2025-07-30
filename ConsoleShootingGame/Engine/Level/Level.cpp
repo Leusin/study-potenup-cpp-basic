@@ -1,6 +1,8 @@
 #include "Level.h"
 
-#include"Actor/Actor.h"
+#include <iostream>;
+#include "Utils/Utils.h"
+#include "Actor/Actor.h"
 
 Level::Level()
 {
@@ -10,12 +12,7 @@ Level::~Level()
 {
 	for (Actor* actor : actors)
 	{
-		SafeDelete(actor); // 다음 주석과 같다.
-		/*if (actor)
-		{
-			delete actor;
-			actor = nullptr;
-		}*/
+		SafeDelete(actor);
 	}
 }
 
@@ -23,17 +20,24 @@ void Level::AddActor(Actor* newActor)
 {
 	// TODO: 중복 여부 확인 예외처리 하면 좋음
 
-	actors.emplace_back(newActor);
+	addRequestedActors.emplace_back(newActor);
+}
 
-	// 오너 설정.
-	newActor->owner = this;
+void Level::DestroyActor(Actor* destroyActor)
+{
+	destroyRequstedActors.emplace_back(destroyActor); // 대기 배열에 추가
 }
 
 void Level::BeginPlay()
 {
 	for (Actor* const actor : actors)
 	{
-		if (actor->HasBegonPlay())
+		if (!actor->isActive || actor->isExpired) // 비활성이거나 폐기 요청중이라면 건너뛰기 
+		{
+			continue;
+		}
+
+		if (actor->HasBegonPlay()) // 이미 호출된 객체 건너뛰기
 		{
 			continue;
 		}
@@ -60,7 +64,7 @@ void Level::Render()
 		Actor* searchActor = nullptr;
 		for (Actor* const otherActor : actors)
 		{
-			if (actor == otherActor) // 
+			if (actor == otherActor)
 			{
 				continue;
 			}
@@ -80,8 +84,47 @@ void Level::Render()
 			continue;
 		}
 
-
 		actor->Render(); // Draw Call
+	}
+}
+
+void Level::ProcessAddAndDestroyActors()
+{
+	// 삭제할 액터 배열 제외
+	for (auto it = actors.begin(); it != actors.end();)
+	{
+		if ((*it)->isExpired)
+		{
+			// erase 함수를 사용하면 iterator가 무효화되기 때문에 
+			// 반환되는 값을 저장해야 한다.
+			it = actors.erase(it);
+			continue;
+		}
+		++it;
+	}
+
+	// 삭제 액터 배열을 순회하면서 delete
+	for (auto* actor : destroyRequstedActors)
+	{
+		// 액터가 그렸던 곳 지우기
+		Utils::SetConsolePosition(actor->position);
+
+		// 콘솔에서 빈문자 출력해서 지우기
+		for (int i = 0; i < actor->Width(); ++i)
+		{
+			printf(" ");
+		}
+
+		SafeDelete(actor);
+	}
+
+	destroyRequstedActors.clear();
+
+	// 새로운 액터 추가 처리
+	for (auto* const actor : addRequestedActors)
+	{
+		actors.emplace_back(actor);
+		actor->owner = this; // 오너 설정.
 	}
 }
 
