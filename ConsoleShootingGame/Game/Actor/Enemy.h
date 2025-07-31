@@ -2,6 +2,7 @@
 
 #include "Actor/Actor.h"
 
+#include "Utils/Timer.h"
 
 /// <summary>
 /// 이동 패턴
@@ -32,7 +33,5 @@ private:
 
 	float moveSpeed = 5.f; // 이속
 
-	float elapsedTime = 0.f; // 타이머 경과한 시간 
-
-	float targetTime = 0.f; // 발사 간격 시간
+	Timer timer;
 };

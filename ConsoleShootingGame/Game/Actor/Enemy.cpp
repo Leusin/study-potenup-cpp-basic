@@ -16,7 +16,7 @@ Enemy::Enemy(const char* image, int yPosition)
 	{
 		// 화면 오른쪽 끝에서 생성되도록 위치 / 이동 방향 설정
 		direction = MoveDirection::Left;
-		xPosition = static_cast<int>(Engine::Get().Width() - Width());
+		xPosition = static_cast<float>(Engine::Get().Width() - Width());
 	}
 	// 홀수인 경우
 	else // (random % 2 != 0)
@@ -28,7 +28,8 @@ Enemy::Enemy(const char* image, int yPosition)
 
 	SetPosition({ static_cast<int>(xPosition) , yPosition }); // 위치 설정
 
-	targetTime = Utils::RandomFloat(1.0f, 3.0f); // 발사 간격 시간 설정.
+	// 발사 간격 시간 설정.
+	timer.SetTargetTime(Utils::RandomFloat(1.0f, 3.0f));
 }
 
 void Enemy::Tick(float deltaTime)
@@ -37,7 +38,7 @@ void Enemy::Tick(float deltaTime)
 
 	// 이동 방향 설정
 	float dir = (direction == MoveDirection::Left) ? -1.f : 1.f;
-	
+
 	xPosition += moveSpeed * dir * deltaTime;
 	// 화면 밖에 벗어났는지 확인.
 	if (xPosition < 0.0f || (int)xPosition > Engine::Get().Width() - Width())
@@ -47,19 +48,23 @@ void Enemy::Tick(float deltaTime)
 		return;
 	}
 
-	SetPosition({ static_cast<int>(xPosition), Position().y});
+	SetPosition({ static_cast<int>(xPosition), Position().y });
 
-	elapsedTime += deltaTime; // 시간 축적
+	timer.Tick(deltaTime); // 시간 축적
 
-	if (elapsedTime < targetTime)
+	// 시간이 경과하면 탄약 발사
 	{
-		return;
+		if (!timer.IsTimeout())
+		{
+			return;
+		}
+
+		// 발사
+		Vector2 firePosition{ Position().x + Width() / 2, Position().y + 1 };
+		float bulletSpeed = Utils::RandomFloat(10.f, 20.f);
+		GetOwner()->AddActor(new EnemyBullet(firePosition, bulletSpeed));
+
+		timer.Reset(); // 타이머 초기화
+		timer.SetTargetTime(Utils::RandomFloat(1.f, 3.f));
 	}
-
-	// 발사
-	GetOwner()->AddActor(new EnemyBullet(Vector2(Position().x + Width() / 2, Position().y + 1), Utils::RandomFloat(10.f, 20.f)));
-
-	// 타이머 초기화
-	elapsedTime = 0.f;
-	targetTime = Utils::RandomFloat(1.f, 3.f);
 }
