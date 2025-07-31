@@ -37,6 +37,9 @@ Engine::Engine()
 	SetConsoleCtrlHandler(ConsoleMessageProcedure, TRUE); // 콘솔창 이벤트 등록
 
 	LoadEngineSettings(); // 엔진 설정 로드
+
+	// 랜덤 종자값(Seed) 생성
+	srand(static_cast<unsigned int>(time(nullptr))); 
 }
 
 Engine::~Engine()
