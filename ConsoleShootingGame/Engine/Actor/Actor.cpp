@@ -74,6 +74,11 @@ bool Actor::TestIntersect(const Actor* const other)
 
 void Actor::Destroy()
 {
+	if(isExpired == true)
+	{
+		return;
+	}
+
 	isExpired = true; // 삭제 요청 설정
 	owner->DestroyActor(this);
 }

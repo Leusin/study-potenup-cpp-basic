@@ -1,17 +1,10 @@
-/*
-* TODO: GameLevel 구현할 것
-* [] npc 생성: 랜덤성을 가미해서 시간마다 적 생성
-* [] 충돌 처리: AABB
-* [] 점수 처리: 적 없애면 1점득
-* [] 게임 판정: 플레이어 사망
-* [] 게임 목표: ???
-*/
-
 #pragma once
 
 #include "Level/Level.h"
 
 #include "Utils/Timer.h"
+#include "Math/Vector2.h"
+
 
 /// <summary>
 /// 슈팅 게임 메인 레벨
@@ -37,4 +30,8 @@ private:
 	Timer enemySpawnTimer;
 
 	static const char* enemyType[];
+
+	int score = 0;
+	bool isPlayerDead = false;
+	Vector2 playerDeadPosition;
 };

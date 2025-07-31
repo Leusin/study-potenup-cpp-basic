@@ -2,13 +2,6 @@
 
 #include "Actor/Actor.h"
 
-/*
-* TODO: Player 구현할 것
-* [] 좌우 이동 - 키입력 기반
-* [] 탄약 발사 - 키입력 기반, 액터 생성
-*	[] 단발: Fire()
-*	[] 연사: FireInterval(float deltaTime)
-*/
 
 class Player : public Actor
 {

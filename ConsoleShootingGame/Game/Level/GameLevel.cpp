@@ -1,11 +1,12 @@
 #include "GameLevel.h"
 
+#include <iostream>
+#include "Engine.h"
 #include "Utils/Utils.h"
 #include "Actor/Enemy.h"
 #include "Actor/Player.h"
 #include "Actor/EnemyBullet.h"
 #include "Actor/PlayerBullet.h"
-
 
 // 적 생성할 때 사용할 글자 값.
 const char* GameLevel::enemyType[] =
@@ -56,6 +57,33 @@ void GameLevel::Tick(float deltaTime)
 void GameLevel::Render()
 {
 	super::Render();
+
+	if (isPlayerDead)
+	{
+		Utils::SetConsolePosition(Vector2(playerDeadPosition.x, playerDeadPosition.y - 1));
+		std::cout << "   .   ";
+
+		Utils::SetConsolePosition(Vector2(playerDeadPosition.x, playerDeadPosition.y));
+		std::cout << " .  .  .";
+
+		Utils::SetConsolePosition(Vector2(playerDeadPosition.x, playerDeadPosition.y + 1));
+		std::cout << "..:V:..";
+
+		Utils::SetConsolePosition(Vector2(playerDeadPosition.x, playerDeadPosition.y + 2));
+		std::cout << "Game Over!";
+
+		Sleep(3000);
+		Engine::Get().Quit();
+	}
+
+	char buffer[20] = {};
+	sprintf_s(buffer, 20, "Score: %d", score);
+	
+	// 출력.
+	Utils::SetConsolePosition(Vector2(1, Engine::Get().Height() + 2));
+	Utils::SetConsoleTextColor(Color::White);
+	std::cout << buffer;
+
 }
 
 void GameLevel::SpwnEnemy()
@@ -104,9 +132,10 @@ void GameLevel::ProcessCollisionPlayerBulletAndEnemy()
 		{
 			if (bullet->TestIntersect(enemy))
 			{
+				bullet->Destroy();
 				enemy->Destroy();
 
-				// TODO: 점수 증가처리
+				score++;// 점수 증가처리
 
 				continue;;
 			}
@@ -116,4 +145,38 @@ void GameLevel::ProcessCollisionPlayerBulletAndEnemy()
 
 void GameLevel::ProcessCollisionPlayerAndEnemyBullet()
 {
+	Player* player = nullptr;
+	std::vector<EnemyBullet*> bullets;
+
+	for (Actor* const actor : actors)
+	{
+		EnemyBullet* bullet = actor->As<EnemyBullet>();
+		if (bullet)
+		{
+			bullets.emplace_back(bullet);
+			continue;
+		}
+
+		if (!player) // 플레이어 확인
+		{
+			player = actor->As<Player>();
+		}
+	}
+
+	if (bullets.size() == 0 || !player)
+	{
+		return;
+	}
+	
+	for (auto* bullet : bullets)
+	{
+		if (player->TestIntersect(bullet))
+		{
+			isPlayerDead = true;
+
+			playerDeadPosition = player->Position();
+
+			player->Destroy();
+		}
+	}
 }
