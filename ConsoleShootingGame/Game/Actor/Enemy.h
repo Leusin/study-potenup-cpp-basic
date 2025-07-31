@@ -34,5 +34,5 @@ private:
 
 	float elapsedTime = 0.f; // 타이머 경과한 시간 
 
-	float targetTime = 0.f; // 목표 시간
+	float targetTime = 0.f; // 발사 간격 시간
 };

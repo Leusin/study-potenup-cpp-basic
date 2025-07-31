@@ -75,9 +75,9 @@ namespace Utils
 	}
 
 
-	inline int RandomFloat(float min, float max)
+	inline float RandomFloat(float min, float max)
 	{
 		float random = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
-		return random * (max - min) + min;
+		return min +(max - min) * random;
 	}
 }

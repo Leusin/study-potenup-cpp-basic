@@ -1,6 +1,6 @@
 #include "Level.h"
 
-#include <iostream>;
+#include <iostream>
 #include "Utils/Utils.h"
 #include "Actor/Actor.h"
 

@@ -48,15 +48,36 @@ namespace Utils
 	/// <summary>
 	/// 콘솔 텍스트 색성 설정
 	/// </summary>
+	/// <param name="color">WORD</param>
 	inline void SetConsoleTextColor(WORD color)
 	{
 		static HANDLE handle = GetConsoleHandle();
 		SetConsoleTextAttribute(handle, color);
 	}
 
+	/// <summary>
+	/// 콘솔 텍스트 색성 설정
+	/// </summary>
+	/// <param name="color">Color</param>
 	inline void SetConsoleTextColor(Color color)
 	{
 		static HANDLE handle = GetConsoleHandle();
 		SetConsoleTextAttribute(handle, static_cast<WORD>(color));
+	}
+
+	/// <summary>
+	/// 랜덤 정수 생성 함수
+	/// </summary>
+	inline int Random(int min, int max)
+	{
+		int diff = (max - min) + 1;
+		return ((diff * rand()) / (RAND_MAX + 1)) + min;
+	}
+
+
+	inline float RandomFloat(float min, float max)
+	{
+		float random = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+		return min +(max - min) * random;
 	}
 }

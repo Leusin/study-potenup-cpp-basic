@@ -4,11 +4,11 @@
 
 class Temp :public Actor
 {
-	RTTI_DECLARATIONS(Temp, Actor);
+	RTTI_DECLARATIONS(Temp, Actor)
 
 public:
 	Temp();
 	~Temp();
 
 	virtual void Tick(float deltaTime) override;
-}
+};
