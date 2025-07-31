@@ -29,8 +29,12 @@ public:
 	virtual void Render() override;
 
 private:
+	void SpwnEnemy();
+	void ProcessCollisionPlayerBulletAndEnemy();
+	void ProcessCollisionPlayerAndEnemyBullet();
+
+private:
 	Timer enemySpawnTimer;
 
-	// 적 생성할 때 사용할 글자 값
 	static const char* enemyType[];
 };

@@ -25,10 +25,6 @@ public:
 	virtual void Tick(float deltaTime); // 매 프레임 호출. (반복성 작업/지속성이 필요한 작업)
 	virtual void Render(); // 그리기
 
-	void Destroy(); // 삭제 요청
-
-	void QuitGame();
-
 	void SetPosition(const Vector2& newPosition);
 	Vector2 Position() const;
 
@@ -39,6 +35,12 @@ public:
 	int Width() const;
 
 	inline bool HasBegonPlay() const { return hasBegonPlay; }
+
+	bool TestIntersect(const Actor* const other);
+
+	void Destroy(); // 삭제 요청
+
+	void QuitGame();
 
 private:
 	Vector2 position; // 개체의 위치

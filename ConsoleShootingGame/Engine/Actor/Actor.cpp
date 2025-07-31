@@ -43,6 +43,35 @@ void Actor::Render()
 	printf("%s", image); // 그리기
 }
 
+bool Actor::TestIntersect(const Actor* const other)
+{
+	// AABB(Axis Aligned Bounding Box)
+	// Note: 현재 엑터 구조상 세로는 크기가 없음.
+	//		따라서 가로 위치만 고려
+
+	int xMin = Position().x;
+	int xMax = Position().x + width - 1;
+
+	// 충돌 비교할 다른 액터의 x 좌표 정보
+	int otherXMin = other->Position().x;
+	int otherXMax = other->Position().x + other->width - 1;
+
+	// 안 겹치는 조건
+	if (otherXMin > xMax) // 다른 액터의 왼쪽 경계가 내 오른쪽 경계보다 더 오른쪽
+	{
+		return false;
+	}
+
+	if (otherXMax < xMin) // 다른 액터의 오른쪽 경계가 내 왼쪽 경계보다 더 왼쪽
+	{
+		return false;
+	}
+
+	// TODO: 기본값 변경
+
+	return Position().y == other->Position().y;
+}
+
 void Actor::Destroy()
 {
 	isExpired = true; // 삭제 요청 설정

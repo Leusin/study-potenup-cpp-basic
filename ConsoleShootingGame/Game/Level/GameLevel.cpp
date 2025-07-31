@@ -1,8 +1,10 @@
 #include "GameLevel.h"
 
 #include "Utils/Utils.h"
-#include "Actor/Player.h"
 #include "Actor/Enemy.h"
+#include "Actor/Player.h"
+#include "Actor/EnemyBullet.h"
+#include "Actor/PlayerBullet.h"
 
 
 // 적 생성할 때 사용할 글자 값.
@@ -37,29 +39,81 @@ void GameLevel::Tick(float deltaTime)
 
 	enemySpawnTimer.Tick(deltaTime);
 
-	if (!enemySpawnTimer.IsTimeout()) // 타이머 확인
+	if (enemySpawnTimer.IsTimeout()) // 타이머 확인
 	{
-		return;
+		SpwnEnemy(); // 적 생성 로직
+
+		// 타이머 정리
+		enemySpawnTimer.Reset();
+		enemySpawnTimer.SetTargetTime(Utils::RandomFloat(2.0f, 3.0f));
 	}
 
-	// 적 생성 로직
-	{
-		// 배열 길이 구하기
-		static int enemyTypeCount = sizeof(enemyType) / sizeof(enemyType[0]);
-		// 적 종류
-		int index = Utils::Random(0, enemyTypeCount - 1);
-		// y 위치 랜덤으로
-		int yPosition = Utils::Random(1, 10);
-		// 적생성 
-		AddActor(new Enemy(enemyType[index], yPosition));
-	}
-
-	// 타이머 정리
-	enemySpawnTimer.Reset();
-	enemySpawnTimer.SetTargetTime(Utils::RandomFloat(2.0f, 3.0f));
+	// 충돌 처리
+	ProcessCollisionPlayerBulletAndEnemy();
+	ProcessCollisionPlayerAndEnemyBullet();
 }
 
 void GameLevel::Render()
 {
 	super::Render();
+}
+
+void GameLevel::SpwnEnemy()
+{
+	// 배열 길이 구하기
+	static int enemyTypeCount = sizeof(enemyType) / sizeof(enemyType[0]);
+	// 적 종류
+	int index = Utils::Random(0, enemyTypeCount - 1);
+	// y 위치 랜덤으로
+	int yPosition = Utils::Random(1, 10);
+	// 적생성 
+	AddActor(new Enemy(enemyType[index], yPosition));
+}
+
+void GameLevel::ProcessCollisionPlayerBulletAndEnemy()
+{
+	std::vector<PlayerBullet*> bullets; // 플레이어 탄약 액터 배열
+	std::vector<Enemy*> enemies; // 적 액터 배열
+
+	for (Actor* const actor : actors)
+	{
+		PlayerBullet* bullet = actor->As<PlayerBullet>();
+		if (bullet)
+		{
+			bullets.emplace_back(bullet);
+			continue;
+		}
+
+		Enemy* enemy = actor->As<Enemy>();
+		if (enemy)
+		{
+			enemies.emplace_back(enemy);
+			continue;
+		}
+	}
+
+	// 예외처리
+	if (bullets.size() == 0 || enemies.size() == 0)
+	{
+		return;
+	}
+
+	for (auto* bullet : bullets)
+	{
+		for (auto* enemy : enemies)
+		{
+			if (bullet->TestIntersect(enemy))
+			{
+				enemy->Destroy();
+
+				// TODO: 점수 증가처리
+
+				continue;;
+			}
+		}
+	}
+}
+
+void GameLevel::ProcessCollisionPlayerAndEnemyBullet()
+{
 }
