@@ -88,6 +88,11 @@ void Actor::QuitGame()
 	Engine::Get().Quit();
 }
 
+Vector2 Actor::Position() const
+{
+	return position;
+}
+
 void Actor::SetPosition(const Vector2& newPosition)
 {
 	if (position == newPosition)
@@ -122,9 +127,9 @@ void Actor::SetPosition(const Vector2& newPosition)
 	position = newPosition;
 }
 
-Vector2 Actor::Position() const
+unsigned int Actor::GetSortingOrder() const
 {
-	return position;
+	return sortingOrder;
 }
 
 void Actor::SetSortingOrder(unsigned int sortingOrder)
@@ -137,9 +142,9 @@ Level* Actor::GetOwner() const
 	return owner;
 }
 
-int Actor::Width() const
+void Actor::SetOwner(Level* owner)
 {
-	return width;
+	this->owner = owner;
 }
 
 

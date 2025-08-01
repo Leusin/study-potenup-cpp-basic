@@ -13,8 +13,6 @@
 /// </summary>
 class Engine_API Actor : public RTTI
 {
-	friend class Level;
-
 	RTTI_DECLARATIONS(Actor, RTTI)
 
 public:
@@ -25,22 +23,24 @@ public:
 	virtual void Tick(float deltaTime); // 매 프레임 호출. (반복성 작업/지속성이 필요한 작업)
 	virtual void Render(); // 그리기
 
-	void SetPosition(const Vector2& newPosition);
-	Vector2 Position() const;
-
-	void SetSortingOrder(unsigned int sortingOrder);
-
-	class Level* GetOwner() const;
-
-	int Width() const;
-
-	inline bool HasBegonPlay() const { return hasBegonPlay; }
-
 	bool TestIntersect(const Actor* const other);
 
 	void Destroy(); // 삭제 요청
-
 	void QuitGame();
+
+	Vector2 Position() const;
+	void SetPosition(const Vector2& newPosition);
+
+	unsigned int GetSortingOrder() const;
+	void SetSortingOrder(unsigned int sortingOrder);
+
+	class Level* GetOwner() const;
+	void SetOwner(class Level* owner);
+
+	inline int Width() const { return width; };
+	inline bool HasBegonPlay() const { return hasBegonPlay; }
+	inline bool IsActive() const { return isActive; };
+	inline bool IsExpired() const { return isExpired; };
 
 private:
 	Vector2 position; // 개체의 위치

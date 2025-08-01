@@ -20,7 +20,7 @@ void Level::BeginPlay()
 {
 	for (Actor* const actor : actors)
 	{
-		if (!actor->isActive || actor->isExpired) // 비활성이거나 폐기 요청중이라면 건너뛰기 
+		if (!actor->IsActive() || actor->IsExpired()) // 비활성이거나 폐기 요청중이라면 건너뛰기 
 		{
 			continue;
 		}
@@ -57,9 +57,9 @@ void Level::Render()
 				continue;
 			}
 
-			if (actor->position == otherActor->position)
+			if (actor->Position() == otherActor->Position())
 			{
-				if (actor->sortingOrder < otherActor->sortingOrder)
+				if (actor->GetSortingOrder() < otherActor->GetSortingOrder())
 				{
 					searchActor = otherActor;
 					break;
@@ -93,7 +93,7 @@ void Level::ProcessAddAndDestroyActors()
 	// 삭제할 액터 배열 제외
 	for (auto it = actors.begin(); it != actors.end();)
 	{
-		if ((*it)->isExpired)
+		if ((*it)->IsExpired())
 		{
 			// erase 함수를 사용하면 iterator가 무효화되기 때문에 
 			// 반환되는 값을 저장해야 한다.
@@ -107,7 +107,7 @@ void Level::ProcessAddAndDestroyActors()
 	for (auto* actor : destroyRequstedActors)
 	{
 		// 액터가 그렸던 곳 지우기
-		Utils::SetConsolePosition(actor->position);
+		Utils::SetConsolePosition(actor->Position());
 
 		// 콘솔에서 빈문자 출력해서 지우기
 		for (int i = 0; i < actor->Width(); ++i)
@@ -124,7 +124,7 @@ void Level::ProcessAddAndDestroyActors()
 	for (auto* const actor : addRequestedActors)
 	{
 		actors.emplace_back(actor);
-		actor->owner = this; // 오너 설정.
+		actor->SetOwner(this); // 오너 설정.
 	}
 
 	addRequestedActors.clear();
@@ -139,7 +139,7 @@ void Level::SortActorsBySortingOrder()
 	{
 		for (int j = 0; j < i; ++j)
 		{
-			if (actors[j]->sortingOrder > actors[j + 1]->sortingOrder)
+			if (actors[j]->GetSortingOrder() > actors[j + 1]->GetSortingOrder())
 			{
 				std::swap(actors[j], actors[j + 1]);
 			}
